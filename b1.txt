@@ -1,0 +1,43 @@
+create database quanlydonhang;
+use quanlydonhang;
+create table sdtNcc(
+maNcc int,
+sdt varchar(10),
+primary key (maNcc, sdt)
+);
+create table nhaCC(
+maNcc int primary key,
+tenNcc varchar(20) not null,
+diaChi varchar(25) not null
+);
+create table phieuXuat(
+soPx varchar(20) primary key,
+ngayXuat datetime
+);
+create table vatTu(
+maVtu varchar(20) primary key,
+tenVtu varchar(25)
+);
+create table phieuNhap(
+soPn varchar(20) primary key,
+ngayNhap datetime
+);
+create table donHang(
+soDh varchar(20) primary key,
+ngayDh datetime,
+maNcc int, foreign key (maNcc) references nhaCC(maNcc)
+);
+create table ctpx(
+soPx varchar(20), foreign key (soPx) references phieuXuat(soPx),
+maVtu varchar(20), foreign key (maVtu) references vatTu(maVtu),
+dgXuat float,
+slXuat int
+);
+create table ctpn(
+soPn varchar(20),foreign key (soPn) references phieuNhap(soPn),
+maVtu varchar(20),foreign key (maVtu) references vatTu(maVtu),
+dgNhap float,
+slNhap int);
+create table ctddh(
+soDh varchar(20),foreign key (soDh) references donHang (soDh),
+maVtu varchar(20), foreign key (maVtu) references vatTu(maVtu));
